@@ -1,5 +1,5 @@
 package main
 
 type class struct {
-	name string
+	className string
 }

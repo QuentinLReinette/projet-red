@@ -18,7 +18,7 @@ func main() {
 }
 
 func printMenu() {
-	fmt.Println(" 1. Show character's infos\n" +
+	fmt.Println("\n 1. Show character's info\n" +
 		" 2. Show inventory\n" +
 		" 3. Exit")
 
@@ -35,8 +35,9 @@ func printMenu() {
 		}
 		switch choice {
 		case 1:
-			// character's info
-			fmt.Println(char1)
+			char1.displayInfo()
+			printMenu()
+			return
 		case 2:
 			// inventory
 		case 3:
