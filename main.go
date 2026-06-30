@@ -8,7 +8,12 @@ import (
 	"strings"
 )
 
+var (
+	char1 *character
+)
+
 func main() {
+	char1 = initChar("newCharacter", "elf", 100)
 	printMenu()
 }
 
@@ -31,6 +36,7 @@ func printMenu() {
 		switch choice {
 		case 1:
 			// character's info
+			fmt.Println(char1)
 		case 2:
 			// inventory
 		case 3:
