@@ -11,6 +11,8 @@ var (
 )
 
 func main() {
+	newInventory := &inventory{[]potion{{"pot1", nil}, {"pot2", nil}, {"pot3", nil}}}
+	char1 = initChar("newCharacter", "elf", 100, newInventory)
 	mainMenu()
 }
 
