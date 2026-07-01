@@ -13,5 +13,5 @@ func (inv *inventory) accessInventory() {
 	for i, pot := range inv.potions {
 		options[i] = menuOption{fmt.Sprintf("%s", pot.potionName), pot.action}
 	}
-	menuPrint(options)
+	menuPrint(options, false)
 }

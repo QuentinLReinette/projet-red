@@ -11,9 +11,9 @@ var (
 )
 
 func main() {
-	newInventory := &inventory{[]potion{{"pot1", nil}, {"pot2", nil}, {"pot3", nil}}}
-	char1 = initChar("newCharacter", "elf", 100, newInventory)
-	mainMenu()
+	for {
+		mainMenu()
+	}
 }
 
 func mainMenu() {
@@ -21,5 +21,5 @@ func mainMenu() {
 		{"Show character's info", char1.displayInfo},
 		{"Show inventory", char1.accessInventory},
 	}
-	menuPrint(options)
+	menuPrint(options, true)
 }
