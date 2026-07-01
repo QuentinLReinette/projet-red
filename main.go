@@ -11,6 +11,8 @@ var (
 )
 
 func main() {
+	char1 = initChar("newCharacter", "elf", 100, &inventory{})
+	char1.inventory.potions = []*potion{newHealthPot(char1, 3)}
 	for {
 		mainMenu()
 	}
