@@ -7,6 +7,7 @@ type character struct {
 	maxHP, currHP, lvl int
 	class
 	*inventory
+	skills []skill
 }
 
 func initChar(name, className string, maxHP int, newInventory *inventory) *character {
@@ -23,4 +24,21 @@ func (c *character) checkAlive() {
 		fmt.Printf("%s died. They're back with half of their max HP\n", c.name)
 		c.currHP = c.maxHP / 2
 	}
+}
+
+func (c *character) spellBook(skill skillType) {
+	switch skill {
+	case punch:
+		c.skills = append(c.skills, newPunch(c))
+	}
+	fmt.Printf("%s learned %s\n", c.name, skill)
+}
+
+func (c *character) checkHasSkill(skill skillType) bool {
+	for _, s := range c.skills {
+		if s.skillType == skill {
+			return true
+		}
+	}
+	return false
 }

@@ -11,11 +11,16 @@ var (
 )
 
 func main() {
-	char1 = initChar("newCharacter", "elf", 100, &inventory{})
-	char1.inventory.potions = []*potion{newHealthPot(char1, 3)}
+	makeDeafultChar()
 	for {
 		mainMenu()
 	}
+}
+
+func makeDeafultChar() {
+	char1 = initChar("newCharacter", "elf", 100, &inventory{})
+	char1.inventory.potions = []*potion{newHealthPot(char1, 3)}
+	char1.skills = []skill{newPunch(char1)}
 }
 
 func mainMenu() {

@@ -1,5 +1,9 @@
 package main
 
+import (
+	"fmt"
+)
+
 type shop struct {
 	char *character
 }
@@ -9,6 +13,7 @@ func shopMenu(char *character) {
 	options := []menuOption{
 		{"Health potion (+50 HP) - free", shop.addHealthPot},
 		{"Poison potion (-10 HP/s) - free", shop.addPoisonPot},
+		{"Spell book: fireball", shop.addFireBall},
 	}
 	menuPrint(options, false)
 }
@@ -35,4 +40,13 @@ func (s shop) addPoisonPot() {
 		}
 	}
 	s.char.potions = append(s.char.potions, newPoisonPot(s.char, 1))
+}
+
+func (s shop) addFireBall() {
+	char := s.char
+	if char.checkHasSkill(fireBall) {
+		fmt.Printf("%s already knows %s.", char.name, fireBall)
+		return
+	}
+	char.inventory.books = append(char.inventory.books, &book{fireBall, func() { char.spellBook(fireBall) }})
 }

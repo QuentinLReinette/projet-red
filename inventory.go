@@ -6,12 +6,16 @@ import (
 
 type inventory struct {
 	potions []*potion
+	books   []*book
 }
 
 func (inv *inventory) accessInventory() {
-	options := make([]menuOption, len(inv.potions))
-	for i, pot := range inv.potions {
-		options[i] = menuOption{fmt.Sprintf("%s potion (+50 HP) x%d", pot, pot.quantity), pot.action}
+	options := []menuOption{}
+	for _, pot := range inv.potions {
+		options = append(options, menuOption{fmt.Sprintf("%s potion (+50 HP) x%d", pot, pot.quantity), pot.action})
+	}
+	for _, book := range inv.books {
+		options = append(options, menuOption{fmt.Sprintf("Spell book: %s", book), book.learn})
 	}
 	menuPrint(options, false)
 }
