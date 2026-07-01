@@ -11,7 +11,7 @@ type inventory struct {
 func (inv *inventory) accessInventory() {
 	options := make([]menuOption, len(inv.potions))
 	for i, pot := range inv.potions {
-		options[i] = menuOption{fmt.Sprintf("%s potion (+50 HP) x%d", pot.potionName, pot.quantity), pot.action}
+		options[i] = menuOption{fmt.Sprintf("%s potion (+50 HP) x%d", pot, pot.quantity), pot.action}
 	}
 	menuPrint(options, false)
 }

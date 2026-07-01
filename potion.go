@@ -6,15 +6,29 @@ import (
 	"slices"
 )
 
+type potionType int
+
+const (
+	healthPotion potionType = iota
+)
+
+var potionNames = map[potionType]string{
+	healthPotion: "Health",
+}
+
 type potion struct {
-	potionName string
+	potionType potionType
 	quantity   int
 	action     func()
 	*character
 }
 
+func (p potion) String() string {
+	return potionNames[p.potionType]
+}
+
 func newHealthPot(char *character, quantity int) *potion {
-	newPot := &potion{"Health", quantity, nil, char}
+	newPot := &potion{healthPotion, quantity, nil, char}
 	newPot.action = newPot.heal
 	return newPot
 }
@@ -38,5 +52,5 @@ func (p *potion) potionRemove() {
 }
 
 func (p *potion) potionEquals(other *potion) bool {
-	return p.potionName == other.potionName && p.character == other.character
+	return p.potionType == other.potionType && p.character == other.character
 }
