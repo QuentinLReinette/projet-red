@@ -4,16 +4,19 @@ import (
 	"fmt"
 	"math"
 	"slices"
+	"time"
 )
 
 type potionType int
 
 const (
 	healthPotion potionType = iota
+	poisonPotion
 )
 
 var potionNames = map[potionType]string{
 	healthPotion: "Health",
+	poisonPotion: "Poison",
 }
 
 type potion struct {
@@ -33,11 +36,28 @@ func newHealthPot(char *character, quantity int) *potion {
 	return newPot
 }
 
+func newPoisonPot(char *character, quantity int) *potion {
+	newPot := &potion{poisonPotion, quantity, nil, char}
+	newPot.action = newPot.poison
+	return newPot
+}
+
 func (p *potion) heal() {
 	hp, maxHP := &p.character.currHP, &p.character.maxHP
 	*hp = int(math.Min(float64(*hp+50), float64(*maxHP)))
 	p.potionRemove()
 	fmt.Printf("You healed 50 HP. Current health: %d/%d\n", p.character.currHP, *maxHP)
+}
+
+func (p *potion) poison() {
+	char := p.character
+	for range 3 {
+		fmt.Printf("%s loses 10 HP.\n", char.name)
+		char.currHP -= 10
+		time.Sleep(1 * time.Second)
+	}
+	p.potionRemove()
+	fmt.Printf("%s's health: %d/%d\n", char.name, char.currHP, char.maxHP)
 }
 
 func (p *potion) potionRemove() {
