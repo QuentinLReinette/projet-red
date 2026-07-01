@@ -22,6 +22,7 @@ func mainMenu() {
 	options := []menuOption{
 		{"Show character's info", char1.displayInfo},
 		{"Show inventory", char1.accessInventory},
+		{"Shop", func() { shopMenu(char1) }},
 	}
 	menuPrint(options, true)
 }
