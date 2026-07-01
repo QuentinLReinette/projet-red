@@ -17,3 +17,10 @@ func initChar(name, className string, maxHP int, newInventory *inventory) *chara
 func (c *character) displayInfo() {
 	fmt.Printf(" Name: %s\n HP: %d/%d\n Class: %s\n", c.name, c.currHP, c.maxHP, c.className)
 }
+
+func (c *character) checkAlive() {
+	if c.currHP <= 0 {
+		fmt.Printf("%s died. They're back with half of their max HP\n", c.name)
+		c.currHP = c.maxHP / 2
+	}
+}
