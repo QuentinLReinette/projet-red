@@ -55,5 +55,5 @@ func charTurn(char *character, monster *monster) {
 			fmt.Printf("%s attacks the %s for 5 damage! The monster has %d HP left.\n", char.name, monster.name, monster.currHP)
 		}},
 	}
-	menuPrint(options, false)
+	menuPrint(options, false, false)
 }

@@ -20,7 +20,7 @@ func shopMenu(char *character) {
 		{"Crow feather - 1 g", shop.addCrowFeather},
 		{"Upgrade inventory capacity - 30 g", shop.upgradeInventory},
 	}
-	menuPrint(options, false)
+	menuPrint(options, true, false)
 }
 
 func (s shop) addHealthPot() {

@@ -28,7 +28,7 @@ func (inv *inventory) accessInventory() {
 		println("Your inventory is empty.")
 		return
 	}
-	menuPrint(options, false)
+	menuPrint(options, true, false)
 }
 
 func (i *inventory) addPotion(p *potion) {

@@ -12,7 +12,7 @@ type menuOption struct {
 	action func()
 }
 
-func menuPrint(options []menuOption, exit bool) {
+func menuPrint(options []menuOption, back, exit bool) {
 	for {
 		println()
 		for i, o := range options {
@@ -20,7 +20,7 @@ func menuPrint(options []menuOption, exit bool) {
 		}
 		if exit {
 			println(" 0. Exit")
-		} else {
+		} else if back {
 			println(" 0. Back")
 		}
 

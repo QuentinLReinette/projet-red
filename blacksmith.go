@@ -13,7 +13,7 @@ func blacksmithMenu(char *character) {
 		{"Adventurer's vest - 5 g", bs.craftVest},
 		{"Adventurer's boots - 5 g", bs.craftBoots},
 	}
-	menuPrint(options, false)
+	menuPrint(options, true, false)
 }
 
 func (b blacksmith) checkReqs(materials map[materialType]int, gold int) bool {

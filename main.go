@@ -31,7 +31,7 @@ func mainMenu() {
 		{"Blacksmith", func() { blacksmithMenu(char1) }},
 		{"Training fight", func() { trainingFight(char1) }},
 	}
-	menuPrint(options, true)
+	menuPrint(options, true, true)
 }
 
 func charCreation() {
@@ -60,25 +60,12 @@ nameFor:
 		}
 		break
 	}
-
-	for {
-		println("\nChoose a class for your character:\n" +
-			" 1. Human\n" +
-			" 2. Elf\n" +
-			" 3. Dwarf")
-		Scanner.Scan()
-		input := strings.TrimSpace(Scanner.Text())
-		switch input {
-		case "1":
-			char1 = newHuman(name)
-		case "2":
-			char1 = newElf(name)
-		case "3":
-			char1 = newDwarf(name)
-		default:
-			println("Invalid input, please try again")
-			continue
-		}
-		break
+	options := []menuOption{
+		{"Human", func() { char1 = newHuman(name) }},
+		{"Elf", func() { char1 = newElf(name) }},
+		{"Dwarf", func() { char1 = newDwarf(name) }},
 	}
+	menuPrint(options, false, false)
+	println("Character created!")
+	char1.displayInfo()
 }
