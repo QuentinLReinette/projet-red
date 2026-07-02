@@ -86,7 +86,7 @@ func (c *character) attack(monster *monster) {
 	for _, s := range c.skills {
 		options = append(options, menuOption{fmt.Sprintf("%s - %d dmg (MP Cost: %d)", s, s.dmg, s.mpCost), func() { s.skillUse(monster) }})
 	}
-	menuPrint(options, false, false)
+	menuPrint(options, true, false)
 }
 
 func (c *character) basicAttack(monster *monster) {

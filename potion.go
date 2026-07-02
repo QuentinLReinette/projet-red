@@ -57,14 +57,15 @@ func (p *potion) heal() {
 }
 
 func (p *potion) poison() {
-	char := Game.character
+	target := Game.fight.monster
+	fmt.Printf("%s is poisoned! It will lose 10 HP for 3 seconds.\n", target.name)
 	for range 3 {
-		fmt.Printf("%s loses 10 HP.\n", char.name)
-		char.currHP -= 10
+		fmt.Printf("%s loses 10 HP.\n", target.name)
+		target.currHP -= 10
 		time.Sleep(1 * time.Second)
 	}
 	p.potionRemove()
-	fmt.Printf("%s's health: %d/%d\n", char.name, char.currHP, char.maxHP)
+	fmt.Printf("%s's health: %d/%d\n", target.name, target.currHP, target.maxHP)
 }
 
 func (p *potion) mana() {
