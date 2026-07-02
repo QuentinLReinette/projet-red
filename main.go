@@ -30,6 +30,7 @@ func mainMenu() {
 		{"Show inventory", char1.accessInventory},
 		{"Shop", func() { shopMenu(char1) }},
 		{"Blacksmith", func() { blacksmithMenu(char1) }},
+		{"Training fight", func() { trainingFight(char1) }},
 	}
 	menuPrint(options, true)
 }

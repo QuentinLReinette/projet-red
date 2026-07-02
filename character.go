@@ -22,11 +22,13 @@ func (c *character) displayInfo() {
 	fmt.Printf(" Name: %s\n HP: %d/%d\n Class: %s\n Gold: %d\n", c.name, c.currHP, c.maxHP, c, c.gold)
 }
 
-func (c *character) checkAlive() {
+func (c *character) checkAlive() bool {
 	if c.currHP <= 0 {
 		fmt.Printf("%s died. They're back with half of their max HP\n", c.name)
 		c.currHP = c.maxHP / 2
+		return false
 	}
+	return true
 }
 
 func (c *character) spellBook(skill skillType) {
