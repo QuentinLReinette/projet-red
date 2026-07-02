@@ -2,9 +2,9 @@ package main
 
 import "fmt"
 
-func trainingFight(char *character) {
+func trainingFight() {
 	goblin := initGoblin()
-	fight(char, goblin)
+	fight(goblin)
 }
 
 type fighter struct {
@@ -13,24 +13,24 @@ type fighter struct {
 	next  *fighter
 }
 
-func fight(char *character, monster *monster) {
+func fight(monster *monster) {
 	round := 1
-	charFighter := &fighter{name: char.name, fight: func() { charTurn(char, monster) }}
-	monsterFighter := &fighter{name: monster.name, fight: func() { monster.goblinPattern(round, char) }}
+	charFighter := &fighter{name: Game.character.name, fight: func() { charTurn(monster) }}
+	monsterFighter := &fighter{name: monster.name, fight: func() { monster.goblinPattern(round) }}
 
 	charFighter.next, monsterFighter.next = monsterFighter, charFighter
 
 	currentFighter := charFighter
-	if char.initiative < monster.initiative {
+	if Game.character.initiative < monster.initiative {
 		currentFighter = monsterFighter
 	}
 	fmt.Printf("%s takes the initiative!\n", currentFighter.name)
 
-	for ; char.currHP > 0 && monster.currHP > 0; round++ {
+	for ; Game.character.currHP > 0 && monster.currHP > 0; round++ {
 		fmt.Printf("Round %d\n", round)
 
 		currentFighter.fight()
-		if !char.checkAlive() {
+		if !Game.character.checkAlive() {
 			return
 		}
 		if monster.currHP <= 0 {
@@ -39,7 +39,7 @@ func fight(char *character, monster *monster) {
 		currentFighter = currentFighter.next
 
 		currentFighter.fight()
-		if !char.checkAlive() {
+		if !Game.character.checkAlive() {
 			return
 		}
 		if monster.currHP <= 0 {
@@ -48,15 +48,15 @@ func fight(char *character, monster *monster) {
 		currentFighter = currentFighter.next
 	}
 	println("You defeated the monster!")
-	char.xp += monster.xp
-	char.checkXP()
+	Game.character.xp += monster.xp
+	Game.character.checkXP()
 }
 
-func charTurn(char *character, monster *monster) {
+func charTurn(monster *monster) {
 	options := []menuOption{
-		{"Open Inventory", char.accessInventory},
+		{"Open Inventory", Game.character.accessInventory},
 		{"Attack", func() {
-			char.attack(monster)
+			Game.character.attack(monster)
 		}},
 	}
 	menuPrint(options, false, false)

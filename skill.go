@@ -16,7 +16,6 @@ var skillNames = map[skillType]string{
 
 type skill struct {
 	skillType
-	char        *character
 	mpCost, dmg int
 }
 
@@ -33,22 +32,22 @@ func (t skillType) String() string {
 	return skillNames[t]
 }
 
-func newPunch(char *character) skill {
-	newSkill := skill{skillType: punch, char: char, mpCost: 5, dmg: 8}
+func newPunch() skill {
+	newSkill := skill{skillType: punch, mpCost: 5, dmg: 8}
 	return newSkill
 }
 
-func newFireBall(char *character) skill {
-	newSkill := skill{skillType: fireBall, char: char, mpCost: 20, dmg: 18}
+func newFireBall() skill {
+	newSkill := skill{skillType: fireBall, mpCost: 20, dmg: 18}
 	return newSkill
 }
 
 func (s skill) skillUse(target *monster) {
-	if s.char.currMP < s.mpCost {
+	if Game.character.currMP < s.mpCost {
 		fmt.Printf("Not enough MP to use %s\n", s)
 		return
 	}
-	s.char.currMP -= s.mpCost
+	Game.character.currMP -= s.mpCost
 	target.currHP -= s.dmg
-	fmt.Printf("%s uses %s! It does %d damage to %s. %s has %d HP left.\n", s.char.name, s, s.dmg, target.name, target.name, target.currHP)
+	fmt.Printf("%s uses %s! It does %d damage to %s. %s has %d HP left.\n", Game.character.name, s, s.dmg, target.name, target.name, target.currHP)
 }

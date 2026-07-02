@@ -25,7 +25,7 @@ func (s shop) addHealthPot() {
 	if Game.character.inventory.isFull() {
 		return
 	}
-	Game.character.inventory.addPotion(newHealthPot(Game.character, 1))
+	Game.character.inventory.addPotion(newHealthPot(1))
 	Game.character.gold -= 3
 	println("You bought 1 Health potion.")
 }
@@ -34,7 +34,7 @@ func (s shop) addManaPot() {
 	if Game.character.inventory.isFull() {
 		return
 	}
-	Game.character.inventory.addPotion(newManaPot(Game.character, 1))
+	Game.character.inventory.addPotion(newManaPot(1))
 	Game.character.gold -= 5
 	println("You bought 1 Mana potion.")
 }
@@ -43,7 +43,7 @@ func (s shop) addPoisonPot() {
 	if Game.character.inventory.isFull() {
 		return
 	}
-	Game.character.inventory.addPotion(newPoisonPot(Game.character, 1))
+	Game.character.inventory.addPotion(newPoisonPot(1))
 	Game.character.gold -= 7
 	println("You bought 1 Poison potion.")
 }

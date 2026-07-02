@@ -19,8 +19,8 @@ type character struct {
 
 func initChar(name string, class class, maxHP, maxMP, initiative int) *character {
 	newChar := &character{name: name, maxHP: maxHP, currHP: maxHP * 4 / 10, maxMP: maxMP, currMP: maxMP, lvl: 1, xp: 0, gold: 100, initiative: initiative, class: class, inventory: &inventory{capacity: 10}}
-	newChar.skills = []skill{newPunch(newChar)}
-	newChar.potions = []*potion{newHealthPot(newChar, 3)}
+	newChar.skills = []skill{newPunch()}
+	newChar.potions = []*potion{newHealthPot(3)}
 	return newChar
 }
 
@@ -41,9 +41,9 @@ func (c *character) checkAlive() bool {
 func (c *character) spellBook(skill skillType) {
 	switch skill {
 	case punch:
-		c.skills = append(c.skills, newPunch(c))
+		c.skills = append(c.skills, newPunch())
 	case fireBall:
-		c.skills = append(c.skills, newFireBall(c))
+		c.skills = append(c.skills, newFireBall())
 	}
 	for _, b := range c.inventory.books {
 		if b.skillType == skill {
