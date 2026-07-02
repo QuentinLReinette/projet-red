@@ -6,8 +6,8 @@ import (
 )
 
 type character struct {
-	name                                 string
-	maxHP, currHP, lvl, gold, initiative int
+	name                                     string
+	maxHP, currHP, lvl, xp, gold, initiative int
 	class
 	*inventory
 	skills    []skill
@@ -15,7 +15,7 @@ type character struct {
 }
 
 func initChar(name string, class class, maxHP, initiative int) *character {
-	newChar := &character{name: name, maxHP: maxHP, currHP: maxHP * 4 / 10, lvl: 1, gold: 100, initiative: initiative, class: class, inventory: &inventory{capacity: 10}}
+	newChar := &character{name: name, maxHP: maxHP, currHP: maxHP * 4 / 10, lvl: 1, xp: 0, gold: 100, initiative: initiative, class: class, inventory: &inventory{capacity: 10}}
 	newChar.skills = []skill{newPunch(newChar)}
 	newChar.potions = []*potion{newHealthPot(newChar, 3)}
 	return newChar
@@ -57,4 +57,20 @@ func (c *character) checkHasSkill(skill skillType) bool {
 		}
 	}
 	return false
+}
+
+func (c *character) checkXP() {
+	if c.xp >= 100 {
+		c.lvlUP()
+	}
+}
+
+func (c *character) lvlUP() {
+	for c.xp >= 100 {
+		c.lvl++
+		c.xp -= 100
+		c.maxHP += 10
+	}
+	c.currHP = c.maxHP
+	fmt.Printf("%s leveled up! They are now level %d and have %d HP\n", c.name, c.lvl, c.maxHP)
 }

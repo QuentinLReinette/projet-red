@@ -2,11 +2,11 @@ package main
 
 type monster struct {
 	name                              string
-	maxHP, currHP, attack, initiative int
+	maxHP, currHP, attack, initiative, xp int
 }
 
 func initGoblin() *monster {
-	return &monster{"Training Goblin", 40, 40, 5, 10}
+	return &monster{"Training Goblin", 40, 40, 5, 10, 10}
 }
 
 func (m *monster) goblinPattern(round int, char *character) {
