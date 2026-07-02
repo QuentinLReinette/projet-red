@@ -2,9 +2,14 @@ package main
 
 import "fmt"
 
-func trainingFight() {
+type fight struct{
+	round int
+	*monster
+}
+
+func (f *fight) trainingFight() {
 	goblin := initGoblin()
-	fight(goblin)
+	f.fightLoop(goblin)
 }
 
 type fighter struct {
@@ -13,10 +18,11 @@ type fighter struct {
 	next  *fighter
 }
 
-func fight(monster *monster) {
-	round := 1
-	charFighter := &fighter{name: Game.character.name, fight: func() { charTurn(monster) }}
-	monsterFighter := &fighter{name: monster.name, fight: func() { monster.goblinPattern(round) }}
+func (f *fight) fightLoop(monster *monster) {
+	f.round = 1
+	f.monster = monster
+	charFighter := &fighter{name: Game.character.name, fight: f.charTurn}
+	monsterFighter := &fighter{name: monster.name, fight: func() { monster.goblinPattern(f.round) }}
 
 	charFighter.next, monsterFighter.next = monsterFighter, charFighter
 
@@ -26,8 +32,8 @@ func fight(monster *monster) {
 	}
 	fmt.Printf("%s takes the initiative!\n", currentFighter.name)
 
-	for ; Game.character.currHP > 0 && monster.currHP > 0; round++ {
-		fmt.Printf("Round %d\n", round)
+	for ; Game.character.currHP > 0 && monster.currHP > 0; f.round++ {
+		fmt.Printf("Round %d\n", f.round)
 
 		currentFighter.fight()
 		if !Game.character.checkAlive() {
@@ -52,11 +58,11 @@ func fight(monster *monster) {
 	Game.character.checkXP()
 }
 
-func charTurn(monster *monster) {
+func (f *fight) charTurn() {
 	options := []menuOption{
 		{"Open Inventory", Game.character.accessInventory},
 		{"Attack", func() {
-			Game.character.attack(monster)
+			Game.character.attack(f.monster)
 		}},
 	}
 	menuPrint(options, false, false)

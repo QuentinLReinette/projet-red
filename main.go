@@ -20,10 +20,10 @@ func main() {
 func mainMenu() {
 	options := []menuOption{
 		{"Show character's info", Game.character.displayInfo},
-		{"Show inventory", Game.character.accessInventory},
-		{"Shop", Game.shop.shopMenu},
-		{"Blacksmith", Game.blacksmith.blacksmithMenu},
-		{"Training fight", trainingFight},
+		{"Show inventory", Game.accessInventory},
+		{"Shop", Game.shopMenu},
+		{"Blacksmith", Game.blacksmithMenu},
+		{"Training fight", Game.trainingFight},
 	}
 	menuPrint(options, true, true)
 }

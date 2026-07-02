@@ -6,10 +6,11 @@ type gameState struct {
 	*character
 	*shop
 	*blacksmith
+	*fight
 }
 
 func newGame() *gameState {
-	game := &gameState{&character{}, &shop{}, &blacksmith{}}
+	game := &gameState{&character{}, &shop{}, &blacksmith{}, &fight{}}
 	game.charCreation()
 	return game
 }
