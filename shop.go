@@ -18,6 +18,7 @@ func shopMenu(char *character) {
 		{"Troll hide - 7 g", shop.addTrollHide},
 		{"Boar leather - 3 g", shop.addBoarLeather},
 		{"Crow feather - 1 g", shop.addCrowFeather},
+		{"Upgrade inventory capacity - 30 g", shop.upgradeInventory},
 	}
 	menuPrint(options, false)
 }
@@ -94,4 +95,14 @@ func (s shop) addCrowFeather() {
 	s.char.inventory.addMaterial(crowFeather)
 	s.char.gold -= 1
 	println("You bought 1 Crow Feather.")
+}
+
+func (s shop) upgradeInventory() {
+	if s.char.inventory.capacity >= 40 {
+		println("Your inventory is already at maximum capacity.")
+		return
+	}
+	s.char.inventory.capacity += 10
+	s.char.gold -= 30
+	println("Your inventory capacity has been increased by 10.")
 }

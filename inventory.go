@@ -10,6 +10,7 @@ type inventory struct {
 	books     []*book
 	equipment []*equipment
 	materials []*material
+	capacity  int
 }
 
 func (inv *inventory) accessInventory() {
@@ -57,7 +58,7 @@ func (i *inventory) addBook(b *book) {
 
 func (i *inventory) isFull() bool {
 	size := len(i.potions) + len(i.books) + len(i.materials) + len(i.equipment)
-	if size > 10 {
+	if size > i.capacity {
 		println("Your inventory is full. You can't carry more items.")
 		return true
 	}
