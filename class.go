@@ -19,13 +19,13 @@ func (c class) String() string {
 }
 
 func newHuman(name string) *character {
-	return &character{name, 100, 50, 1, 100, human, &inventory{}, []skill{}}
+	return &character{name, 100, 50, 1, 100, human, &inventory{}, []skill{}, []*equipment{}}
 }
 
 func newElf(name string) *character {
-	return &character{name, 80, 40, 1, 100, elf, &inventory{}, []skill{}}
+	return &character{name, 80, 40, 1, 100, elf, &inventory{}, []skill{}, []*equipment{}}
 }
 
 func newDwarf(name string) *character {
-	return &character{name, 120, 60, 1, 100, dwarf, &inventory{}, []skill{}}
+	return &character{name, 120, 60, 1, 100, dwarf, &inventory{}, []skill{}, []*equipment{}}
 }

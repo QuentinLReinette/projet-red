@@ -10,7 +10,8 @@ type character struct {
 	maxHP, currHP, lvl, gold int
 	class
 	*inventory
-	skills []skill
+	skills    []skill
+	equipment []*equipment
 }
 
 func initChar(name string, class class, maxHP int, newInventory *inventory) *character {

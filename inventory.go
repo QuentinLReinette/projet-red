@@ -8,6 +8,7 @@ import (
 type inventory struct {
 	potions   []*potion
 	books     []*book
+	equipment []*equipment
 	materials []*material
 }
 
@@ -55,7 +56,7 @@ func (i *inventory) addBook(b *book) {
 }
 
 func (i *inventory) isFull() bool {
-	size := len(i.potions) + len(i.books) + len(i.materials)
+	size := len(i.potions) + len(i.books) + len(i.materials) + len(i.equipment)
 	if size > 10 {
 		println("Your inventory is full. You can't carry more items.")
 		return true
@@ -105,6 +106,27 @@ func (i *inventory) removeMaterials(materials map[materialType]int) {
 				}
 				break
 			}
+		}
+	}
+}
+
+func (i *inventory) addEquipment(e *equipment) {
+	if i.isFull() {
+		return
+	}
+	for _, eq := range i.equipment {
+		if eq.equipmentType == e.equipmentType {
+			return
+		}
+	}
+	i.equipment = append(i.equipment, e)
+}
+
+func (i *inventory) removeEquipment(e *equipment) {
+	for idx, eq := range i.equipment {
+		if eq == e {
+			i.equipment = slices.Delete(i.equipment, idx, idx+1)
+			break
 		}
 	}
 }
