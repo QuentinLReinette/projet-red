@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type skillType int
 
 const (
@@ -14,8 +16,8 @@ var skillNames = map[skillType]string{
 
 type skill struct {
 	skillType
-	char   *character
-	action func()
+	char        *character
+	mpCost, dmg int
 }
 
 type book struct {
@@ -32,17 +34,21 @@ func (t skillType) String() string {
 }
 
 func newPunch(char *character) skill {
-	newSkill := skill{punch, char, nil}
-	newSkill.action = newSkill.skillPunch
+	newSkill := skill{skillType: punch, char: char, mpCost: 5, dmg: 8}
 	return newSkill
 }
 
 func newFireBall(char *character) skill {
-	newSkill := skill{fireBall, char, nil}
-	newSkill.action = newSkill.skillFireBall
+	newSkill := skill{skillType: fireBall, char: char, mpCost: 20, dmg: 18}
 	return newSkill
 }
 
-func (s skill) skillPunch() {}
-
-func (s skill) skillFireBall() {}
+func (s skill) skillUse(target *monster) {
+	if s.char.currMP < s.mpCost {
+		fmt.Printf("Not enough MP to use %s\n", s)
+		return
+	}
+	s.char.currMP -= s.mpCost
+	target.currHP -= s.dmg
+	fmt.Printf("%s uses %s! It does %d damage to %s. %s has %d HP left.\n", s.char.name, s, s.dmg, target.name, target.name, target.currHP)
+}

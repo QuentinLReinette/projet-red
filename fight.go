@@ -33,26 +33,30 @@ func fight(char *character, monster *monster) {
 		if !char.checkAlive() {
 			return
 		}
+		if monster.currHP <= 0 {
+			break
+		}
 		currentFighter = currentFighter.next
 
 		currentFighter.fight()
 		if !char.checkAlive() {
 			return
 		}
+		if monster.currHP <= 0 {
+			break
+		}
 		currentFighter = currentFighter.next
 	}
-	if monster.currHP <= 0 {
-		fmt.Println("You defeated the monster!")
-		return
-	}
+	println("You defeated the monster!")
+	char.xp += monster.xp
+	char.checkXP()
 }
 
 func charTurn(char *character, monster *monster) {
 	options := []menuOption{
 		{"Open Inventory", char.accessInventory},
 		{"Attack", func() {
-			monster.currHP -= 5
-			fmt.Printf("%s attacks the %s for 5 damage! The monster has %d HP left.\n", char.name, monster.name, monster.currHP)
+			char.attack(monster)
 		}},
 	}
 	menuPrint(options, false, false)

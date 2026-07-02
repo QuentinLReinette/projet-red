@@ -19,13 +19,13 @@ func (c class) String() string {
 }
 
 func newHuman(name string) *character {
-	return initChar(name, human, 100, 10)
+	return initChar(name, human, 100, 100, 10)
 }
 
 func newElf(name string) *character {
-	return initChar(name, elf, 80, 15)
+	return initChar(name, elf, 80, 130, 15)
 }
 
 func newDwarf(name string) *character {
-	return initChar(name, dwarf, 120, 5)
+	return initChar(name, dwarf, 120, 80, 5)
 }
