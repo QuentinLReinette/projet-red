@@ -42,6 +42,12 @@ func newPoisonPot(char *character, quantity int) *potion {
 	return newPot
 }
 
+func newManaPot(char *character, quantity int) *potion {
+	newPot := &potion{potionType: healthPotion, quantity: quantity, character: char}
+	newPot.action = newPot.mana
+	return newPot
+}
+
 func (p *potion) heal() {
 	hp, maxHP := &p.character.currHP, &p.character.maxHP
 	*hp = int(math.Min(float64(*hp+50), float64(*maxHP)))
@@ -58,6 +64,13 @@ func (p *potion) poison() {
 	}
 	p.potionRemove()
 	fmt.Printf("%s's health: %d/%d\n", char.name, char.currHP, char.maxHP)
+}
+
+func (p *potion) mana() {
+	mp, maxMP := &p.character.currMP, &p.character.maxMP
+	*mp = int(math.Min(float64(*mp+30), float64(*maxMP)))
+	p.potionRemove()
+	fmt.Printf("You restored 30 MP. Current mana: %d/%d\n", p.character.currMP, *maxMP)
 }
 
 func (p *potion) potionRemove() {

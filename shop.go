@@ -12,7 +12,8 @@ func shopMenu(char *character) {
 	shop := shop{char}
 	options := []menuOption{
 		{"Health potion (+50 HP) - 3 g", shop.addHealthPot},
-		{"Poison potion (-10 HP/s) - 6 g", shop.addPoisonPot},
+		{"Mana potion (+30 MP) - 5 g", shop.addManaPot},
+		{"Poison potion (-10 HP/s) - 7 g", shop.addPoisonPot},
 		{"Spell book: fireball - 25 g", shop.addFireBall},
 		{"Wolf hide - 4 g", shop.addWolfHide},
 		{"Troll hide - 7 g", shop.addTrollHide},
@@ -32,12 +33,21 @@ func (s shop) addHealthPot() {
 	println("You bought 1 Health potion.")
 }
 
+func (s shop) addManaPot() {
+	if s.char.inventory.isFull() {
+		return
+	}
+	s.char.inventory.addPotion(newManaPot(s.char, 1))
+	s.char.gold -= 5
+	println("You bought 1 Mana potion.")
+}
+
 func (s shop) addPoisonPot() {
 	if s.char.inventory.isFull() {
 		return
 	}
 	s.char.inventory.addPotion(newPoisonPot(s.char, 1))
-	s.char.gold -= 6
+	s.char.gold -= 7
 	println("You bought 1 Poison potion.")
 }
 
