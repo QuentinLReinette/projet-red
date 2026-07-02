@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"slices"
+)
 
 type character struct {
 	name               string
@@ -29,6 +32,14 @@ func (c *character) spellBook(skill skillType) {
 	switch skill {
 	case punch:
 		c.skills = append(c.skills, newPunch(c))
+	case fireBall:
+		c.skills = append(c.skills, newFireBall(c))
+	}
+	for _, b := range c.inventory.books {
+		if b.skillType == skill {
+			c.inventory.books = slices.Delete(c.inventory.books, slices.IndexFunc(c.inventory.books, func(b *book) bool { return b.skillType == skill }), 1)
+			break
+		}
 	}
 	fmt.Printf("%s learned %s\n", c.name, skill)
 }
