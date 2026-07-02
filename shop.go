@@ -4,58 +4,55 @@ import (
 	"fmt"
 )
 
-type shop struct {
-	char *character
-}
+type shop struct{}
 
-func shopMenu(char *character) {
-	shop := shop{char}
+func (s shop) shopMenu() {
 	options := []menuOption{
-		{"Health potion (+50 HP) - 3 g", shop.addHealthPot},
-		{"Mana potion (+30 MP) - 5 g", shop.addManaPot},
-		{"Poison potion (-10 HP/s) - 7 g", shop.addPoisonPot},
-		{"Spell book: fireball - 25 g", shop.addFireBall},
-		{"Wolf hide - 4 g", shop.addWolfHide},
-		{"Troll hide - 7 g", shop.addTrollHide},
-		{"Boar leather - 3 g", shop.addBoarLeather},
-		{"Crow feather - 1 g", shop.addCrowFeather},
-		{"Upgrade inventory capacity - 30 g", shop.upgradeInventory},
+		{"Health potion (+50 HP) - 3 g", s.addHealthPot},
+		{"Mana potion (+30 MP) - 5 g", s.addManaPot},
+		{"Poison potion (-10 HP/s) - 7 g", s.addPoisonPot},
+		{"Spell book: fireball - 25 g", s.addFireBall},
+		{"Wolf hide - 4 g", s.addWolfHide},
+		{"Troll hide - 7 g", s.addTrollHide},
+		{"Boar leather - 3 g", s.addBoarLeather},
+		{"Crow feather - 1 g", s.addCrowFeather},
+		{"Upgrade inventory capacity - 30 g", s.upgradeInventory},
 	}
 	menuPrint(options, true, false)
 }
 
 func (s shop) addHealthPot() {
-	if s.char.inventory.isFull() {
+	if Game.character.inventory.isFull() {
 		return
 	}
-	s.char.inventory.addPotion(newHealthPot(s.char, 1))
-	s.char.gold -= 3
+	Game.character.inventory.addPotion(newHealthPot(Game.character, 1))
+	Game.character.gold -= 3
 	println("You bought 1 Health potion.")
 }
 
 func (s shop) addManaPot() {
-	if s.char.inventory.isFull() {
+	if Game.character.inventory.isFull() {
 		return
 	}
-	s.char.inventory.addPotion(newManaPot(s.char, 1))
-	s.char.gold -= 5
+	Game.character.inventory.addPotion(newManaPot(Game.character, 1))
+	Game.character.gold -= 5
 	println("You bought 1 Mana potion.")
 }
 
 func (s shop) addPoisonPot() {
-	if s.char.inventory.isFull() {
+	if Game.character.inventory.isFull() {
 		return
 	}
-	s.char.inventory.addPotion(newPoisonPot(s.char, 1))
-	s.char.gold -= 7
+	Game.character.inventory.addPotion(newPoisonPot(Game.character, 1))
+	Game.character.gold -= 7
 	println("You bought 1 Poison potion.")
 }
 
 func (s shop) addFireBall() {
-	if s.char.inventory.isFull() {
+	if Game.character.inventory.isFull() {
 		return
 	}
-	char := s.char
+	char := Game.character
 	if char.checkHasSkill(fireBall) {
 		fmt.Printf("%s already knows Fireball.", char.name)
 		return
@@ -66,53 +63,53 @@ func (s shop) addFireBall() {
 			return
 		}
 	}
-	s.char.gold -= 25
-	s.char.inventory.addBook(&book{fireBall, func() { char.spellBook(fireBall) }})
+	Game.character.gold -= 25
+	Game.character.inventory.addBook(&book{fireBall, func() { char.spellBook(fireBall) }})
 	println("You bought a Fireball spell book.")
 }
 
 func (s shop) addWolfHide() {
-	if s.char.inventory.isFull() {
+	if Game.character.inventory.isFull() {
 		return
 	}
-	s.char.inventory.addMaterial(wolfHide)
-	s.char.gold -= 4
+	Game.character.inventory.addMaterial(wolfHide)
+	Game.character.gold -= 4
 	println("You bought 1 Wolf Hide.")
 }
 
 func (s shop) addTrollHide() {
-	if s.char.inventory.isFull() {
+	if Game.character.inventory.isFull() {
 		return
 	}
-	s.char.inventory.addMaterial(trollHide)
-	s.char.gold -= 7
+	Game.character.inventory.addMaterial(trollHide)
+	Game.character.gold -= 7
 	println("You bought 1 Troll Hide.")
 }
 
 func (s shop) addBoarLeather() {
-	if s.char.inventory.isFull() {
+	if Game.character.inventory.isFull() {
 		return
 	}
-	s.char.inventory.addMaterial(boarLeather)
-	s.char.gold -= 3
+	Game.character.inventory.addMaterial(boarLeather)
+	Game.character.gold -= 3
 	println("You bought 1 Boar Leather.")
 }
 
 func (s shop) addCrowFeather() {
-	if s.char.inventory.isFull() {
+	if Game.character.inventory.isFull() {
 		return
 	}
-	s.char.inventory.addMaterial(crowFeather)
-	s.char.gold -= 1
+	Game.character.inventory.addMaterial(crowFeather)
+	Game.character.gold -= 1
 	println("You bought 1 Crow Feather.")
 }
 
 func (s shop) upgradeInventory() {
-	if s.char.inventory.capacity >= 40 {
+	if Game.character.inventory.capacity >= 40 {
 		println("Your inventory is already at maximum capacity.")
 		return
 	}
-	s.char.inventory.capacity += 10
-	s.char.gold -= 30
+	Game.character.inventory.capacity += 10
+	Game.character.gold -= 30
 	println("Your inventory capacity has been increased by 10.")
 }

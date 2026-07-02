@@ -11,11 +11,13 @@ type potionType int
 
 const (
 	healthPotion potionType = iota
+	manaPotion
 	poisonPotion
 )
 
 var potionNames = map[potionType]string{
 	healthPotion: "Health",
+	manaPotion:   "Mana",
 	poisonPotion: "Poison",
 }
 
@@ -43,7 +45,7 @@ func newPoisonPot(char *character, quantity int) *potion {
 }
 
 func newManaPot(char *character, quantity int) *potion {
-	newPot := &potion{potionType: healthPotion, quantity: quantity, character: char}
+	newPot := &potion{potionType: manaPotion, quantity: quantity, character: char}
 	newPot.action = newPot.mana
 	return newPot
 }
