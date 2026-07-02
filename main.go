@@ -11,6 +11,13 @@ var (
 )
 
 func main() {
+	defer func() {
+		if err := Scanner.Err(); err != nil {
+			println("Error while reading input: ", err)
+		}
+		Scanner = nil
+	}()
+
 	Game = newGame()
 	for {
 		mainMenu()
