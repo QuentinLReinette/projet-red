@@ -13,7 +13,6 @@ var (
 
 func main() {
 	charCreation()
-	makeDeafultChar()
 	for {
 		mainMenu()
 	}
@@ -61,4 +60,26 @@ nameFor:
 		break
 	}
 
+	for {
+		println("\nChoose a class for your character:\n" +
+			" 1. Human\n" +
+			" 2. Elf\n" +
+			" 3. Dwarf")
+		Scanner.Scan()
+		input := strings.TrimSpace(Scanner.Text())
+		switch input {
+		case "1":
+			char1 = newHuman(name)
+		case "2":
+			char1 = newElf(name)
+		case "3":
+			char1 = newDwarf(name)
+		default:
+			println("Invalid input, please try again")
+			continue
+		}
+		break
+	}
+	char1.inventory.potions = []*potion{newHealthPot(char1, 3)}
+	char1.skills = []skill{newPunch(char1)}
 }
