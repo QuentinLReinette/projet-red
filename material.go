@@ -25,6 +25,10 @@ func (m material) String() string {
 	return materialNames[m.materialType]
 }
 
+func (m materialType) String() string {
+	return materialNames[m]
+}
+
 func (m material) use() {
 	println("This item does nothing on its own.")
 }

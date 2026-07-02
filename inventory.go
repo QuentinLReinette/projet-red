@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"slices"
 )
 
 type inventory struct {
@@ -73,4 +74,37 @@ func (i *inventory) addMaterial(m materialType) {
 		}
 	}
 	i.materials = append(i.materials, &material{m, 1})
+}
+
+func (i *inventory) checkHasMaterials(materials map[materialType]int) bool {
+	for m, quantity := range materials {
+		found := false
+		for _, mat := range i.materials {
+			if mat.materialType == m {
+				found = true
+				if mat.quantity < quantity {
+					return false
+				}
+				break
+			}
+		}
+		if !found {
+			return false
+		}
+	}
+	return true
+}
+
+func (i *inventory) removeMaterials(materials map[materialType]int) {
+	for m, quantity := range materials {
+		for idx, mat := range i.materials {
+			if mat.materialType == m {
+				mat.quantity -= quantity
+				if mat.quantity <= 0 {
+					i.materials = slices.Delete(i.materials, idx, idx+1)
+				}
+				break
+			}
+		}
+	}
 }
