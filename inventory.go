@@ -21,6 +21,9 @@ func (inv *inventory) accessInventory() {
 	for _, book := range inv.books {
 		options = append(options, menuOption{fmt.Sprintf("Spell book: %s", book), book.learn})
 	}
+	for _, eq := range inv.equipment {
+		options = append(options, menuOption{fmt.Sprintf("%s: %s", eq.equipmentType, eq.name), eq.equip})
+	}
 	for _, mat := range inv.materials {
 		options = append(options, menuOption{fmt.Sprintf("%s x%d", mat, mat.quantity), mat.use})
 	}

@@ -39,18 +39,18 @@ func (b *blacksmith) craftItem(materials map[materialType]int, gold int, itemNam
 
 func (b *blacksmith) craftHat() {
 	b.craftItem(map[materialType]int{crowFeather: 1, boarLeather: 1}, 5, "Adventurer's hat")
-	newEq := newEquipment(headGear, "Adventurer's hat", 0, Game.character)
+	newEq := newEquipment(headGear, "Adventurer's hat", 10, Game.character)
 	Game.character.inventory.addEquipment(newEq)
 }
 
 func (b *blacksmith) craftVest() {
 	b.craftItem(map[materialType]int{wolfHide: 2, trollHide: 1}, 5, "Adventurer's vest")
-	newEq := newEquipment(bodyArmor, "Adventurer's vest", 0, Game.character)
+	newEq := newEquipment(bodyArmor, "Adventurer's vest", 25, Game.character)
 	Game.character.inventory.addEquipment(newEq)
 }
 
 func (b *blacksmith) craftBoots() {
 	b.craftItem(map[materialType]int{wolfHide: 1, boarLeather: 1}, 5, "Adventurer's boots")
-	newEq := newEquipment(legArmor, "Adventurer's boots", 0, Game.character)
+	newEq := newEquipment(legArmor, "Adventurer's boots", 15, Game.character)
 	Game.character.inventory.addEquipment(newEq)
 }

@@ -10,6 +10,12 @@ const (
 	legArmor
 )
 
+var equipmentTypeNames = map[equipmentType]string{
+	headGear:  "Head Gear",
+	bodyArmor: "Body Armor",
+	legArmor:  "Leg Armor",
+}
+
 type equipment struct {
 	equipmentType
 	name    string
@@ -17,10 +23,14 @@ type equipment struct {
 	*character
 }
 
+func (e equipmentType) String() string {
+	return equipmentTypeNames[e]
+}
+
 func (e *equipment) equip() {
 	for _, eq := range e.character.equipment {
 		if eq.equipmentType == e.equipmentType {
-			e.unequip()
+			eq.unequip()
 			break
 		}
 	}
