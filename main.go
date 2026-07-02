@@ -24,7 +24,7 @@ func mainMenu() {
 		{"Show character's info", char1.displayInfo},
 		{"Show inventory", char1.accessInventory},
 		{"Shop", Game.shop.shopMenu},
-		{"Blacksmith", func() { blacksmithMenu(char1) }},
+		{"Blacksmith", Game.blacksmith.blacksmithMenu},
 		{"Training fight", func() { trainingFight(char1) }},
 	}
 	menuPrint(options, true, true)
