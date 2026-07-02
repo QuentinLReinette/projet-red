@@ -5,8 +5,9 @@ import (
 )
 
 type inventory struct {
-	potions []*potion
-	books   []*book
+	potions   []*potion
+	books     []*book
+	materials []*material
 }
 
 func (inv *inventory) accessInventory() {
@@ -16,6 +17,13 @@ func (inv *inventory) accessInventory() {
 	}
 	for _, book := range inv.books {
 		options = append(options, menuOption{fmt.Sprintf("Spell book: %s", book), book.learn})
+	}
+	for _, mat := range inv.materials {
+		options = append(options, menuOption{fmt.Sprintf("%s x%d", mat, mat.quantity), mat.use})
+	}
+	if len(options) == 0 {
+		println("Your inventory is empty.")
+		return
 	}
 	menuPrint(options, false)
 }
@@ -46,10 +54,23 @@ func (i *inventory) addBook(b *book) {
 }
 
 func (i *inventory) isFull() bool {
-	size := len(i.potions) + len(i.books)
+	size := len(i.potions) + len(i.books) + len(i.materials)
 	if size > 10 {
 		println("Your inventory is full. You can't carry more items.")
 		return true
 	}
 	return false
+}
+
+func (i *inventory) addMaterial(m materialType) {
+	if i.isFull() {
+		return
+	}
+	for _, mat := range i.materials {
+		if mat.materialType == m {
+			mat.quantity++
+			return
+		}
+	}
+	i.materials = append(i.materials, &material{m, 1})
 }
