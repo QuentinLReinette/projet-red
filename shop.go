@@ -18,6 +18,8 @@ func (s shop) shopMenu() {
 		{"Crow feather - 1 g", s.addCrowFeather},
 		{"Upgrade inventory capacity - 30 g", s.upgradeInventory},
 	}
+	println("================================================================")
+	println("Welcome to the shop! What would you like to buy?")
 	menuPrint(options, true, false)
 }
 
@@ -54,7 +56,7 @@ func (s shop) addFireBall() {
 	}
 	char := Game.character
 	if char.checkHasSkill(fireBall) {
-		fmt.Printf("%s already knows Fireball.", char.name)
+		fmt.Printf("%s already knows Fireball.\n", char.name)
 		return
 	}
 	for _, b := range char.inventory.books {

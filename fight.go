@@ -33,6 +33,7 @@ func (f *fight) fightLoop(monster *monster) {
 	fmt.Printf("%s takes the initiative!\n", currentFighter.name)
 
 	for ; Game.character.currHP > 0 && monster.currHP > 0; f.round++ {
+		println("================================================================")
 		fmt.Printf("Round %d\n", f.round)
 
 		currentFighter.fight()

@@ -27,10 +27,12 @@ func (inv *inventory) accessInventory() {
 	for _, mat := range inv.materials {
 		options = append(options, menuOption{fmt.Sprintf("%s x%d", mat, mat.quantity), mat.use})
 	}
-	if len(options) == 0 {
+	println("================================================================")
+	if inv.len() == 0 {
 		println("Your inventory is empty.")
 		return
 	}
+	fmt.Printf("Your inventory (%d/%d):\n", inv.len(), inv.capacity)
 	menuPrint(options, true, false)
 }
 
@@ -59,9 +61,25 @@ func (i *inventory) addBook(b *book) {
 	i.books = append(i.books, b)
 }
 
+func (i *inventory) len() int {
+	len := 0
+	for _, pot := range i.potions {
+		len += pot.quantity
+	}
+	for range i.books {
+		len++
+	}
+	for _, mat := range i.materials {
+		len += mat.quantity
+	}
+	for range i.equipment {
+		len++
+	}
+	return len
+}
+
 func (i *inventory) isFull() bool {
-	size := len(i.potions) + len(i.books) + len(i.materials) + len(i.equipment)
-	if size > i.capacity {
+	if i.len() >= i.capacity {
 		println("Your inventory is full. You can't carry more items.")
 		return true
 	}

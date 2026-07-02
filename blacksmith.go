@@ -10,6 +10,8 @@ func (b *blacksmith) blacksmithMenu() {
 		{"Adventurer's vest - 5 g", b.craftVest},
 		{"Adventurer's boots - 5 g", b.craftBoots},
 	}
+	println("================================================================")
+	println("Welcome to the blacksmith! What would you like to craft?")
 	menuPrint(options, true, false)
 }
 

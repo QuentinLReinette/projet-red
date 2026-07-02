@@ -25,5 +25,7 @@ func mainMenu() {
 		{"Blacksmith", Game.blacksmithMenu},
 		{"Training fight", Game.trainingFight},
 	}
+	println("================================================================")
+	println("What would you like to do?")
 	menuPrint(options, true, true)
 }
