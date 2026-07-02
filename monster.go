@@ -1,17 +1,19 @@
 package main
 
 type monster struct {
-	name                  string
-	maxHP, currHP, attack int
+	name                              string
+	maxHP, currHP, attack, initiative int
 }
 
 func initGoblin() *monster {
-	return &monster{"Training goblin", 40, 40, 5}
+	return &monster{"Training Goblin", 40, 40, 5, 10}
 }
 
-func (m *monster) goblinPattern(round int) int {
+func (m *monster) goblinPattern(round int, char *character) {
+	attack := m.attack
 	if round%3 == 0 {
-		return m.attack * 2
+		attack *= 2
 	}
-	return m.attack
+	char.currHP -= attack
+	println("Goblin attacks for", attack, "damage! You have", char.currHP, "HP left.")
 }

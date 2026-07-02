@@ -6,20 +6,23 @@ import (
 )
 
 type character struct {
-	name                     string
-	maxHP, currHP, lvl, gold int
+	name                                 string
+	maxHP, currHP, lvl, gold, initiative int
 	class
 	*inventory
 	skills    []skill
 	equipment []*equipment
 }
 
-func initChar(name string, class class, maxHP int, newInventory *inventory) *character {
-	return &character{name: name, maxHP: maxHP, currHP: maxHP * 4 / 10, lvl: 1, gold: 100, inventory: newInventory, class: class}
+func initChar(name string, class class, maxHP, initiative int) *character {
+	newChar := &character{name: name, maxHP: maxHP, currHP: maxHP * 4 / 10, lvl: 1, gold: 100, initiative: initiative, class: class, inventory: &inventory{capacity: 10}}
+	newChar.skills = []skill{newPunch(newChar)}
+	newChar.potions = []*potion{newHealthPot(newChar, 3)}
+	return newChar
 }
 
 func (c *character) displayInfo() {
-	fmt.Printf(" Name: %s\n HP: %d/%d\n Class: %s\n Gold: %d\n", c.name, c.currHP, c.maxHP, c, c.gold)
+	fmt.Printf(" Name: %s\n HP: %d/%d\n Class: %s\n Gold: %d\n Initiative: %d\n", c.name, c.currHP, c.maxHP, c.class, c.gold, c.initiative)
 }
 
 func (c *character) checkAlive() bool {

@@ -18,10 +18,9 @@ func main() {
 	}
 }
 
-func makeDeafultChar() {
-	char1 = initChar("newCharacter", elf, 100, &inventory{})
-	char1.inventory.potions = []*potion{newHealthPot(char1, 3)}
-	char1.skills = []skill{newPunch(char1)}
+// create a default character for testing purposes
+func makeDefaultChar() {
+	char1 = newHuman("Default")
 }
 
 func mainMenu() {
@@ -82,6 +81,4 @@ nameFor:
 		}
 		break
 	}
-	char1.inventory.potions = []*potion{newHealthPot(char1, 3)}
-	char1.skills = []skill{newPunch(char1)}
 }

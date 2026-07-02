@@ -7,15 +7,39 @@ func trainingFight(char *character) {
 	fight(char, goblin)
 }
 
+type fighter struct {
+	name  string
+	fight func()
+	next  *fighter
+}
+
 func fight(char *character, monster *monster) {
-	for round := 1; char.currHP > 0 && monster.currHP > 0; round++ {
-		monsterAttack := monster.goblinPattern(round)
-		char.currHP -= monsterAttack
-		fmt.Printf("Round %d\nGoblin attacks for %d damage! You have %d HP left.\n", round, monsterAttack, char.currHP)
+	round := 1
+	charFighter := &fighter{name: char.name, fight: func() { charTurn(char, monster) }}
+	monsterFighter := &fighter{name: monster.name, fight: func() { monster.goblinPattern(round, char) }}
+
+	charFighter.next, monsterFighter.next = monsterFighter, charFighter
+
+	currentFighter := charFighter
+	if char.initiative < monster.initiative {
+		currentFighter = monsterFighter
+	}
+	fmt.Printf("%s takes the initiative!\n", currentFighter.name)
+
+	for ; char.currHP > 0 && monster.currHP > 0; round++ {
+		fmt.Printf("Round %d\n", round)
+
+		currentFighter.fight()
 		if !char.checkAlive() {
 			return
 		}
-		charTurn(char, monster)
+		currentFighter = currentFighter.next
+
+		currentFighter.fight()
+		if !char.checkAlive() {
+			return
+		}
+		currentFighter = currentFighter.next
 	}
 	if monster.currHP <= 0 {
 		fmt.Println("You defeated the monster!")
