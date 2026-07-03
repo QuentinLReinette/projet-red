@@ -23,8 +23,19 @@ func (s shop) shopMenu() {
 	menuPrint(options, true, false)
 }
 
-func (s shop) addHealthPot() {
+func (s shop) checkCanBuy(cost int) bool {
+	if Game.character.gold < cost {
+		println("You don't have enough gold.")
+		return false
+	}
 	if Game.character.inventory.isFull() {
+		return false
+	}
+	return true
+}
+
+func (s shop) addHealthPot() {
+	if !s.checkCanBuy(3) {
 		return
 	}
 	Game.character.inventory.addPotion(newHealthPot(1))
@@ -33,7 +44,7 @@ func (s shop) addHealthPot() {
 }
 
 func (s shop) addManaPot() {
-	if Game.character.inventory.isFull() {
+	if !s.checkCanBuy(5) {
 		return
 	}
 	Game.character.inventory.addPotion(newManaPot(1))
@@ -42,7 +53,7 @@ func (s shop) addManaPot() {
 }
 
 func (s shop) addPoisonPot() {
-	if Game.character.inventory.isFull() {
+	if !s.checkCanBuy(7) {
 		return
 	}
 	Game.character.inventory.addPotion(newPoisonPot(1))
@@ -51,7 +62,7 @@ func (s shop) addPoisonPot() {
 }
 
 func (s shop) addFireBall() {
-	if Game.character.inventory.isFull() {
+	if !s.checkCanBuy(25) {
 		return
 	}
 	char := Game.character
@@ -71,7 +82,7 @@ func (s shop) addFireBall() {
 }
 
 func (s shop) addWolfHide() {
-	if Game.character.inventory.isFull() {
+	if !s.checkCanBuy(4) {
 		return
 	}
 	Game.character.inventory.addMaterial(wolfHide)
@@ -80,7 +91,7 @@ func (s shop) addWolfHide() {
 }
 
 func (s shop) addTrollHide() {
-	if Game.character.inventory.isFull() {
+	if !s.checkCanBuy(7) {
 		return
 	}
 	Game.character.inventory.addMaterial(trollHide)
@@ -89,7 +100,7 @@ func (s shop) addTrollHide() {
 }
 
 func (s shop) addBoarLeather() {
-	if Game.character.inventory.isFull() {
+	if !s.checkCanBuy(3) {
 		return
 	}
 	Game.character.inventory.addMaterial(boarLeather)
@@ -98,7 +109,7 @@ func (s shop) addBoarLeather() {
 }
 
 func (s shop) addCrowFeather() {
-	if Game.character.inventory.isFull() {
+	if !s.checkCanBuy(1) {
 		return
 	}
 	Game.character.inventory.addMaterial(crowFeather)
@@ -107,6 +118,10 @@ func (s shop) addCrowFeather() {
 }
 
 func (s shop) upgradeInventory() {
+	if Game.character.gold < 30 {
+		println("You don't have enough gold.")
+		return
+	}
 	if Game.character.inventory.capacity >= 40 {
 		println("Your inventory is already at maximum capacity.")
 		return
