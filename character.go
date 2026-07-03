@@ -45,9 +45,9 @@ func (c *character) spellBook(skill skillType) {
 	case fireBall:
 		c.skills = append(c.skills, newFireBall())
 	}
-	for _, b := range c.inventory.books {
+	for idx, b := range c.inventory.books {
 		if b.skillType == skill {
-			c.inventory.books = slices.Delete(c.inventory.books, slices.IndexFunc(c.inventory.books, func(b *book) bool { return b.skillType == skill }), 1)
+			c.inventory.books = slices.Delete(c.inventory.books, idx, idx+1)
 			break
 		}
 	}
